@@ -37,7 +37,11 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?= base_url('panel/dosen'); ?>">Lihat data</a>
+            <?php if ($this->session->userdata('role_user') == 'dosen' || $this->session->userdata('role_user') == 'staff') {
+              
+            }else{?>
             <a class="collapse-item" href="<?= base_url('dosen/tambah'); ?>">Tambah Data</a>
+            <?php } ?>
           </div>
         </div>
       </li>
@@ -51,12 +55,18 @@
         <div id="collapsTree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?= base_url('panel/staff'); ?>">Lihat data</a>
+            <?php if ($this->session->userdata('role_user') == 'dosen' || $this->session->userdata('role_user') == 'staff') {
+              
+            }else{?>
             <a class="collapse-item" href="<?= base_url('staff/tambah'); ?>">Tambah Data</a>
+           <?php } ?>
           </div>
         </div>
       </li>
       
-
+      <?php if ($this->session->userdata('role_user') == 'dosen' || $this->session->userdata('role_user') == 'staff') {
+              
+            }else{?>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#"  data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-user-clock"></i>
@@ -69,6 +79,7 @@
           </div>
         </div>
       </li>
+      <?php } ?>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#"  data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseTwo">
@@ -78,7 +89,11 @@
         <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?= base_url('panel/absen'); ?>">Lihat data</a>
+            <?php if ($this->session->userdata('role_user') == 'dosen' || $this->session->userdata('role_user') == 'staff') {
+              
+            }else{?>
             <a class="collapse-item" href="<?= base_url('absen/tambah'); ?>">Tambah Data</a>
+            <?php } ?>
           </div>
         </div>
       </li>
@@ -91,7 +106,11 @@
         <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="<?= base_url('panel/gaji'); ?>">Lihat data</a>
+            <?php if ($this->session->userdata('role_user') == 'dosen' || $this->session->userdata('role_user') == 'staff') {
+              
+            }else{?>
             <a class="collapse-item" href="<?= base_url('gaji/tambah'); ?>">Tambah Data</a>
+            <?php } ?>
           </div>
         </div>
       </li>

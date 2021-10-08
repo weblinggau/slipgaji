@@ -42,9 +42,48 @@ class Basemodel extends CI_Model {
     	$this->db->select('*');
       	$this->db->from('dosen');
       	$this->db->join('user','user.id_user = dosen.id_dosen','left');
+        $this->db->join('jabatan','jabatan.id_jabatan = dosen.id_jabatan','left');
+        $this->db->join('jenjang','jenjang.id_jenjang = dosen.id_jenjang','left');
       	$this->db->where('id_dosen', $data);      
       	$query = $this->db->get();
       	return $query;
+    }
+
+    public function updateDosen($data,$id){
+        $this->db->trans_start();
+            $dosen = array(
+                'nama' => $data['nama'],
+                'alamat' => $data['alamat'],
+                'jenis_kelamin' => $data['jenis_kelamin'],
+                'id_jabatan' => $data['id_jabatan'],
+                'id_jenjang' => $data['id_jenjang'],
+                'nip' => $data['nip'],
+            );
+            $id_dosen = array('id_dosen' => $id,);
+            $this->db->where($id_dosen);
+            $this->db->update('dosen',$dosen);
+
+            if ($data['type'] == 'pass') {
+                $user = array(
+                'password' => $data['password']
+                );
+                $id_user = array('id_user' => $id,);
+                $this->db->where($id_user);
+                $this->db->update('user',$user);
+            }elseif ($data['type'] == 'nopass') {
+                
+            }
+        $this->db->trans_complete();
+        return;
+    }
+
+    public function hapusDosen($id){
+            $this->db->where('id_dosen',$id);
+            $this->db->delete('dosen');
+
+            $this->db->where('id_user',$id);
+            $this->db->delete('user');
+        return;
     }
 
     public function getjabatan(){

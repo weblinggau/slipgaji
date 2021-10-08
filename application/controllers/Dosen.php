@@ -16,9 +16,11 @@ class Dosen extends CI_Controller
     	if ($this->session->userdata('login') != 'zpmlogin') {
     		redirect('Auth');
     	}else{
+        $data['jabatan'] = $this->Basemodel->getjabatan()->result();
+        $data['jenjang'] = $this->Basemodel->getjenjang()->result();
     		$this->load->view('templates/panel_header');
 		    $this->load->view('templates/panel_menu');
-		    // $this->load->view('home/index');
+		    $this->load->view('dosen/tambah',$data);
 		    $this->load->view('templates/panel_footer');
     	}
     	
@@ -62,13 +64,14 @@ class Dosen extends CI_Controller
             $id_dosen= htmlspecialchars($this->input->post('dosenid',true));
             $dataedit = $this->Basemodel->dosenPraedit($id_dosen)->row();
             $jabatan = $this->Basemodel->getjabatan()->result();
-            $data['jenjang'] = $this->Basemodel->getjenjang()->result();
+            $jenjang = $this->Basemodel->getjenjang()->result();
 
 
             echo '
             <div class="form-group">
                   <input type="hidden" name="jenis" value="dosen">
                   <label>Username</label>
+                  <input type="hidden" name="id_dosen" value="'.$dataedit->id_dosen.'">
                   <input type="text" class="form-control"  name="username" readonly value="'.$dataedit->username.'">
                 </div>
                 <div class="form-group">
@@ -117,18 +120,68 @@ class Dosen extends CI_Controller
                 </div>
                 <div class="form-group">
                   <label>Jenjang</label>
-                  <select class="form-control" name="jenjang" required>
-                    <option selected>Open this select menu</option>
-                    <?php foreach ($jenjang as $jej) {
-                      
-                    ?>
-                    <option value="<?= $jej->id_jenjang; ?>"><?= $jej->nama_jenjang; ?></option>
-                    <?php } ?>
+                  <select class="form-control" name="jenjang">
+                  <option value="'.$dataedit->id_jenjang.'">'.$dataedit->nama_jenjang.'</option>';
+                    foreach ($jenjang as $jej) {
+                      echo '
+                    <option value="'.$jej->id_jenjang.'">'.$jej->nama_jenjang.'</option>';
+                    }
+                    echo '
                   </select>
                 </div>
             ';
 
         }
+    }
+
+    public function update(){
+      // password_hash($this->input->post('pass'), PASSWORD_DEFAULT)
+        // ini adalah fungsi untuk cek apkah yg menggunakan fungsi ini login atau tida
+        if ($this->session->userdata('login') != 'zpmlogin') {
+            redirect('Auth');
+
+        // jika login maka akan meng eksekusi printah add ke database
+        }else{
+            $form['username'] = htmlspecialchars($this->input->post('username',true));
+            $pass = $this->input->post('password');
+            if (empty($pass)) {
+              $form['type'] = 'nopass';
+            }else{
+              $form['type'] = 'pass';
+              $form['password'] = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
+            }
+            $form['nama'] = htmlspecialchars($this->input->post('nama',true));
+            $form['nip'] = htmlspecialchars($this->input->post('nip',true));
+            $form['alamat'] = htmlspecialchars($this->input->post('alamat',true));
+            $form['jenis_kelamin'] = htmlspecialchars($this->input->post('jk',true));
+            $form['id_jabatan'] = htmlspecialchars($this->input->post('jabatan',true));
+            $form['id_jenjang'] = htmlspecialchars($this->input->post('jenjang',true));
+
+            $id_dosen = htmlspecialchars($this->input->post('id_dosen',true));
+
+            $this->Basemodel->updateDosen($form,$id_dosen);
+            $this->session->set_flashdata('message', '<div class="alert alert-success alert-dismissible fade show" role="alert">Data berhasil dirubah.!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>');
+            redirect('panel/dosen');
+        }
+    }
+
+    public function hapus($a){
+      if ($this->session->userdata('login') != 'zpmlogin') {
+        redirect('Auth');
+      }else{
+        $id_dosen = $a;
+        $this->Basemodel->hapusDosen($id_dosen);
+        $this->session->set_flashdata('message', '<div class="alert alert-danger alert-dismissible fade show" role="alert">Data berhasil dihapus.!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>');
+        redirect('panel/dosen');
+      }
     }
 
 
