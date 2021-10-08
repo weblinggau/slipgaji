@@ -1,11 +1,8 @@
 # slipgaji
 Projek akhir slip gaji karyawan untuk wika
 <br/>
-<br/>
-==========================================
-<br/>
 
-# slipgaji
+# Programer
 Aji Arian Nofa
 <br/>
 
