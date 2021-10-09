@@ -20,7 +20,7 @@ class Staff extends CI_Controller
             $data['jenjang'] = $this->Basemodel->getjenjang()->result();
             $this->load->view('templates/panel_header');
             $this->load->view('templates/panel_menu');
-            $this->load->view('dosen/tambah',$data);
+            $this->load->view('staff/tambah',$data);
             $this->load->view('templates/panel_footer');
         }
         

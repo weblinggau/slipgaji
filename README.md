@@ -20,7 +20,8 @@ password : dilan123 <br/>
 # Cangelog
 09-10-2021<br/>
 -perbaikan menu dosen<br/>
--menambhkan menu staff<br/><br/>
+-menambhkan menu staff<br/>
+-menambhkan menu admin<br/><br/>
 08-10-2021<br/>
 -create github repository<br/>
 -membuat kerangka aplikasi<br/>

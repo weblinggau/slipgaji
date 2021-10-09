@@ -17,38 +17,28 @@
                       <thead>
                         <tr>
                           <th>No</th>
-                          <th>Jenjang</th>
-                          <th>Gelar</th>
-                          <th>Bidang Studi</th>
-                          <th>Institusi</th>
-                          <th>Tahun Masuk</th>
-                          <th>Tahun Lulus</th>
+                          <th>Username</th>
                           <th>Aksi</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <!-- <?php 
+                        <?php 
                         $no = 1;
-                        foreach ($pendik as $pn) {
+                        foreach ($admin as $ad) {
                          ?>
                         <tr>
                           <td><?= $no++; ?></td>
-                          <td><?= $pn->jenjang; ?></td>
-                          <td><?= $pn->gelar; ?></td>
-                          <td><?= $pn->bidang_studi; ?></td>
-                          <td><?= $pn->institusi; ?></td>
-                          <td><?= $pn->tahun_masuk; ?></td>
-                          <td><?= $pn->tahun_lulus; ?></td>
+                          <td><?= $ad->username; ?></td>
                           <td>
-                              <a href="" data-toggle="modal" data-target="#editpendik" data-id="<?= $pn->id_pendidikan; ?>">
+                              <a href="" data-toggle="modal" data-target="#editadmin" data-id="<?= $ad->id_data; ?>">
                               <span class="badge badge-success">Edit</span>
                               </a>
-                              <a href="<?= base_url("pendidikan/hapus/").$pn->id_pendidikan;?>">
+                              <a href="<?= base_url("admin/hapus/").$ad->id_data;?>">
                               <span class="badge badge-danger">Hapus</span>
                               </a>
                           </td>
                         </tr>
-                        <?php } ?> -->
+                        <?php } ?>
                       </tbody>
                     </table>
                   </div>        
@@ -67,7 +57,7 @@
                   </div>
                   <div class="card-body">
                     <p>Untuk menambahkan klik tombol berikut</p>
-                    <a href="#" class="btn btn-primary btn-icon-split" data-toggle="modal" data-target="#pendik">
+                    <a href="#" class="btn btn-primary btn-icon-split" data-toggle="modal" data-target="#admin">
                       <span class="icon text-white-50">
                           <i class="fas fa-arrow-right"></i>
                       </span>
@@ -82,40 +72,24 @@
         <!-- /.container-fluid -->
       </div>
       <!-- End of Main Content -->
-      <div class="modal fade" id="pendik" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Tambah Data Pendidikan</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Tambah Data Admin</h5>
               <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
               </button>
             </div>
             <div class="modal-body">
-              <form class="user" method="post" action="<?= base_url("pendidikan/add");?>">
+              <form class="user" method="post" action="<?= base_url("admin/add");?>">
                 <div class="form-group">
-                  <label>Jenjang</label>
-                  <input type="text" class="form-control"  name="jenjang">
-                </div>
-                <div class="form-group">
-                  <label>Gelar</label>
-                  <input type="text" class="form-control"  name="gelar">
+                  <label>Username</label>
+                  <input type="text" class="form-control"  name="username" required>
                 </div>
                 <div class="form-group">
-                  <label>Bidang Studi</label>
-                  <input type="text" class="form-control"  name="studi">
-                </div>
-                 <div class="form-group">
-                  <label>Institusi</label>
-                  <input type="text" class="form-control"  name="stut">
-                </div>
-                 <div class="form-group">
-                  <label>Tahun Masuk</label>
-                  <input type="text" class="form-control"  name="masuk">
-                </div>
-                 <div class="form-group">
-                  <label>Tahun Lulus</label>
-                  <input type="text" class="form-control"  name="lulus">
+                  <label>Password</label>
+                  <input type="password" class="form-control"  name="password" required>
                 </div>
             </div>
             <div class="modal-footer">
@@ -126,22 +100,22 @@
           </div>
         </div>
       </div>
-      <div class="modal fade" id="editpendik" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="editadmin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Edit Data Pendidikan</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Edit Data Admin</h5>
               <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
               </button>
             </div>
             <div class="modal-body">
-            <form class="prodi" method="post" action="<?= base_url("pendidikan/update")?>">
+            <form class="prodi" method="post" action="<?= base_url("admin/update")?>">
               <div class="modal-data"></div>
             </div>
             <div class="modal-footer">
               <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-primary btn-user">Edit Data Pendidikan</button>
+              <button type="submit" class="btn btn-primary btn-user">Edit Data</button>
             </div>
             </form>
           </div>
@@ -149,14 +123,14 @@
       </div>
   <script type="text/javascript">
     $(document).ready(function(){
-        $('#editpendik').on('show.bs.modal', function (e) {
+        $('#editadmin').on('show.bs.modal', function (e) {
             var userDat = $(e.relatedTarget).data('id');
             /* fungsi AJAX untuk melakukan fetch data */
             $.ajax({
                 type : 'post',
-                url : '<?= base_url("pendidikan/praedit") ?>',
+                url : '<?= base_url("admin/praedit") ?>',
                 /* detail per identifier ditampung pada berkas detail.php yang berada di folder application/view */
-                data :  'pendik='+ userDat,
+                data :  'iddata='+ userDat,
                 /* memanggil fungsi getDetail dan mengirimkannya */
                 success : function(data){
                 $('.modal-data').html(data);

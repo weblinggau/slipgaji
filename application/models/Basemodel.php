@@ -177,6 +177,58 @@ class Basemodel extends CI_Model {
         return;
     }
 
+    public function getadmin(){
+        $role = array('role_user' => 'admin', );
+        $data = $this->db->get_where('user',$role);
+        return $data;
+    }
+
+    public function addAdmin($data){
+        $user = array(
+                'id_user' => '0',
+                'username' => $data['username'],
+                'password' => $data['password'],
+                'role_user' => 'admin',
+            );
+        $this->db->insert('user', $user);
+        return 'sukses';
+    }
+
+    public function adminPraedit($id){
+        $this->db->where('id_data', $id);
+        $this->db->where('role_user', 'admin'); 
+        $data = $this->db->get('user');
+        return $data;
+    }
+
+    public function updateAdmin($data,$id){
+        if ($data['type'] == 'pass') {
+            $admin = array(
+                'username' => $data['username'],
+                'password' => $data['password'],
+                'role_user' => 'admin',
+            );
+        }elseif ($data['type'] == 'nopass') {
+            $admin = array(
+                'username' => $data['username'],
+                'role_user' => 'admin',
+            );
+        }
+        
+        $id_admin = array('id_data' => $id,);
+        $this->db->where($id_admin);
+        $this->db->where('role_user','admin');
+        $this->db->update('user',$admin);
+        return;
+    }
+
+    public function hapusAdmin($id){
+        $this->db->where('id_data',$id);
+        $this->db->where('role_user','admin');
+        $this->db->delete('user');
+        return;
+    }
+
 
     public function getjabatan(){
     	$data = $this->db->get('jabatan');
