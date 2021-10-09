@@ -229,6 +229,133 @@ class Basemodel extends CI_Model {
         return;
     }
 
+    public function getdosenAbsen(){
+        $this->db->select('*');
+        $this->db->from('absensi');
+        $this->db->where('bulan',date('m'));
+        $this->db->where('tahun',date('Y'));
+        $this->db->where('type','dosen');
+        $this->db->join('dosen','dosen.id_dosen = absensi.id_user','left');      
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function filterdosenAbsen($data){
+        $this->db->select('*');
+        $this->db->from('absensi');
+        $this->db->where('bulan',$data['bulan']);
+        $this->db->where('tahun',$data['tahun']);
+        $this->db->where('type','dosen');
+        $this->db->join('dosen','dosen.id_dosen = absensi.id_user','left');      
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function addDosenAbsen($data){
+        $absen = array(
+                'id_user' => $data['dosen'],
+                'bulan' => $data['bulan'],
+                'tahun' => $data['tahun'],
+                'masuk' => $data['masuk'],
+                'absen' => $data['absen'],
+                'sakit_skd' => $data['sakit'],
+                'sakit_non_skd' => $data['sakit_non_skd'],
+                'izin' => $data['izin'],
+                'cuti' => $data['cuti'],
+                'type' => 'dosen',
+            );
+        $this->db->insert('absensi', $absen);
+        return;
+    }
+
+    
+    public function absenDosenPraedit($data){
+        $this->db->select('*');
+        $this->db->from('absensi');
+        $this->db->join('dosen','dosen.id_dosen = absensi.id_user','left');
+        $this->db->where('id_absen', $data);
+        $this->db->where('type','dosen');      
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function upadateDosenAbsen($data,$id){
+        $this->db->where($id);
+        $this->db->where('type','dosen');
+        $this->db->update('absensi',$data);
+        return;
+    }
+
+     public function hapusDosenAbsen($id){
+        $this->db->where('id_absen',$id);
+        $this->db->where('type','dosen');
+        $this->db->delete('absensi');
+        return;
+    }
+
+    public function getstaffAbsen(){
+        $this->db->select('*');
+        $this->db->from('absensi');
+        $this->db->where('bulan',date('m'));
+        $this->db->where('tahun',date('Y'));
+        $this->db->where('type','staff');
+        $this->db->join('staff','staff.id_staff = absensi.id_user','left');      
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function filterstaffAbsen($data){
+        $this->db->select('*');
+        $this->db->from('absensi');
+        $this->db->where('bulan',$data['bulan']);
+        $this->db->where('tahun',$data['tahun']);
+        $this->db->where('type','staff');
+        $this->db->join('staff','staff.id_staff = absensi.id_user','left');      
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function addStaffAbsen($data){
+        $absen = array(
+                'id_user' => $data['staff'],
+                'bulan' => $data['bulan'],
+                'tahun' => $data['tahun'],
+                'masuk' => $data['masuk'],
+                'absen' => $data['absen'],
+                'sakit_skd' => $data['sakit'],
+                'sakit_non_skd' => $data['sakit_non_skd'],
+                'izin' => $data['izin'],
+                'cuti' => $data['cuti'],
+                'type' => 'staff',
+            );
+        $this->db->insert('absensi', $absen);
+        return;
+    }
+
+    public function absenStaffPraedit($data){
+        $this->db->select('*');
+        $this->db->from('absensi');
+        $this->db->join('staff','staff.id_staff = absensi.id_user','left');
+        $this->db->where('id_absen', $data);
+        $this->db->where('type','staff');      
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function upadateStaffAbsen($data,$id){
+        $this->db->where($id);
+        $this->db->where('type','staff');
+        $this->db->update('absensi',$data);
+        return;
+    }
+
+     public function hapusStaffAbsen($id){
+        $this->db->where('id_absen',$id);
+        $this->db->where('type','staff');
+        $this->db->delete('absensi');
+        return;
+    }
+
 
     public function getjabatan(){
     	$data = $this->db->get('jabatan');
@@ -239,5 +366,23 @@ class Basemodel extends CI_Model {
     	$data = $this->db->get('jenjang');
         return $data;
     }
+
+    public function valAbsen($data,$var){
+        if ($var == 'dosen') {
+            $this->db->where('id_user', $data['dosen']);
+            $this->db->where('bulan', $data['bulan']);
+            $this->db->where('tahun', $data['tahun']); 
+            $this->db->where('type', 'dosen');
+            $val = $this->db->get('absensi');
+        }elseif ($var == 'staff') {
+            $this->db->where('id_user', $data['staff']);
+            $this->db->where('bulan', $data['bulan']);
+            $this->db->where('tahun', $data['tahun']); 
+            $this->db->where('type', 'staff');
+            $val = $this->db->get('absensi');
+        }
+        return $val;
+    }
+
 
 }

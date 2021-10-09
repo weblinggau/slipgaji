@@ -67,29 +67,6 @@ class Panel extends CI_Controller
         }
     }
 
-    public function Absen()
-    {
-        if ($this->session->userdata('login') != 'zpmlogin') {
-            redirect('Auth');
-        }else{
-            $this->load->view('templates/panel_header');
-            $this->load->view('templates/panel_menu');
-            $this->load->view('absen/index');
-            $this->load->view('templates/panel_footer');
-        }
-    }
-
-    public function Gaji()
-    {
-        if ($this->session->userdata('login') != 'zpmlogin') {
-            redirect('Auth');
-        }else{
-            $this->load->view('templates/panel_header');
-            $this->load->view('templates/panel_menu');
-            $this->load->view('gaji/index');
-            $this->load->view('templates/panel_footer');
-        }
-    }
 
 
 }

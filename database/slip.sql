@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 09 Okt 2021 pada 07.36
+-- Waktu pembuatan: 09 Okt 2021 pada 13.58
 -- Versi server: 8.0.18
 -- Versi PHP: 7.3.11
 
@@ -37,16 +37,21 @@ CREATE TABLE `absensi` (
   `sakit_non_skd` int(11) NOT NULL,
   `izin` int(11) NOT NULL,
   `cuti` int(11) NOT NULL,
-  `bulan` enum('1','2','3','4','5','6','7','8','9','10','11','12') COLLATE utf8mb4_general_ci NOT NULL,
-  `tahun` int(10) NOT NULL
+  `bulan` enum('01','02','03','04','05','06','07','08','09','10','11','12') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `tahun` int(10) NOT NULL,
+  `type` enum('dosen','staff') COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `absensi`
 --
 
-INSERT INTO `absensi` (`id_absen`, `id_user`, `masuk`, `absen`, `sakit_skd`, `sakit_non_skd`, `izin`, `cuti`, `bulan`, `tahun`) VALUES
-(1, 2, 26, 1, 1, 1, 1, 1, '9', 2021);
+INSERT INTO `absensi` (`id_absen`, `id_user`, `masuk`, `absen`, `sakit_skd`, `sakit_non_skd`, `izin`, `cuti`, `bulan`, `tahun`, `type`) VALUES
+(1, 1, 26, 1, 1, 0, 1, 1, '10', 2021, 'dosen'),
+(2, 1, 25, 2, 0, 0, 0, 3, '09', 2021, 'dosen'),
+(5, 8, 28, 2, 0, 0, 0, 0, '10', 2021, 'dosen'),
+(7, 3, 30, 0, 0, 0, 0, 0, '10', 2021, 'staff'),
+(8, 2, 29, 0, 0, 0, 0, 1, '10', 2021, 'staff');
 
 -- --------------------------------------------------------
 
@@ -69,7 +74,8 @@ CREATE TABLE `dosen` (
 --
 
 INSERT INTO `dosen` (`id_dosen`, `nama`, `alamat`, `jenis_kelamin`, `id_jabatan`, `id_jenjang`, `nip`) VALUES
-(1, 'Zulva Priska Muzairi', 'Kota Lubuklinggau', 'perempuan', 2, 1, '1920022');
+(1, 'Zulva Priska Muzairi', 'Kota Lubuklinggau', 'perempuan', 2, 1, '1920022'),
+(8, 'Rahmat Riadi SH', 'Kota Bengkulu', 'laki-laki', 1, 1, '1920001');
 
 -- --------------------------------------------------------
 
@@ -168,7 +174,8 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`id_staff`, `nama`, `alamat`, `jenis_kelamin`, `id_jabatan`, `id_jenjang`, `nip`) VALUES
-(2, 'Dilan Oh Dilan', 'Karawang City', 'laki-laki', 2, 2, '182000012');
+(2, 'Dilan Oh Dilan', 'Karawang City', 'laki-laki', 2, 2, '182000012'),
+(3, 'Aan Wicaksono', 'Jakarta Selatan', 'laki-laki', 1, 2, '129000123');
 
 -- --------------------------------------------------------
 
@@ -191,7 +198,11 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id_data`, `id_user`, `username`, `password`, `role_user`) VALUES
 (1, 2, 'admin', '$2y$10$Tk6CNsC/RVH0irQIA6npPuOFG7MK5LzH8cuxYPhM/jfEy6TjywLh6', 'admin'),
 (8, 1, 'dosen', '$2y$10$Y2wENPirmPwB1osR1zL..eTKEyrU4VGt05sL3WsQsffTrXR2aWIkG', 'dosen'),
-(9, 2, 'dilan', '$2y$10$n6qigIQeQcjid3YHjH/Inea8Ubrz.4jChmZ7OTvAlkNLT1SN6ex6K', 'staff');
+(9, 2, 'dilan', '$2y$10$n6qigIQeQcjid3YHjH/Inea8Ubrz.4jChmZ7OTvAlkNLT1SN6ex6K', 'staff'),
+(10, 3, 'aan', '$2y$10$/cIcnSsM36G6KJGb5gav3.b6IVd5VoEYWrOJZOnlCDmgMBIQ59P4a', 'staff'),
+(11, 0, 'dolan', '$2y$10$wbjSS.T87ZFhfND0PrFTW.HFrVK8Ryhi/QCdPKLFnt0uP4jPVDWSm', 'admin'),
+(13, 0, 'wika univbi', '$2y$10$oR2u8f5rfwYCULiSpTt6iuHLq3bPlHNajJ6e7meIZ0yGAnkabVfUu', 'admin'),
+(14, 8, 'rahmat', '$2y$10$REtUzW56JafgkMVKLy9Mt.C2uNJf5TvFim.DguTi5PeVrwfbCt26G', 'dosen');
 
 --
 -- Indexes for dumped tables
@@ -253,13 +264,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `absensi`
 --
 ALTER TABLE `absensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `dosen`
 --
 ALTER TABLE `dosen`
-  MODIFY `id_dosen` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_dosen` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `jabatan`
@@ -289,13 +300,13 @@ ALTER TABLE `potongan`
 -- AUTO_INCREMENT untuk tabel `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id_staff` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_staff` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_data` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_data` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

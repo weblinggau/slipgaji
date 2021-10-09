@@ -21,7 +21,9 @@ password : dilan123 <br/>
 09-10-2021<br/>
 -perbaikan menu dosen<br/>
 -menambhkan menu staff<br/>
--menambhkan menu admin<br/><br/>
+-menambhkan menu admin<br/>
+-menambhkan menu absensi dosen<br/>
+-menambhkan menu absensi staff<br/><br/>
 08-10-2021<br/>
 -create github repository<br/>
 -membuat kerangka aplikasi<br/>
