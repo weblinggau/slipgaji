@@ -16,13 +16,14 @@ password : admin <br/>
 aa
 
 # Cangelog
+09-10-2021<br/>
+-perbaikan menu dosen<br/>
+-menambhkan menu staff<br/><br/>
 08-10-2021<br/>
 -create github repository<br/>
 -membuat kerangka aplikasi<br/>
 -membuat database <br/>
 -membuat menu utama web<br/>
--module dosen selesai dibuat<br/><br/>
-09-10-2021<br/>
--perbaikan menu dosen<br/>
--menambhkan menu staff<br/>
+-module dosen selesai dibuat<br/>
+
 
