@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 08 Okt 2021 pada 10.19
+-- Waktu pembuatan: 09 Okt 2021 pada 07.36
 -- Versi server: 8.0.18
 -- Versi PHP: 7.3.11
 
@@ -69,8 +69,7 @@ CREATE TABLE `dosen` (
 --
 
 INSERT INTO `dosen` (`id_dosen`, `nama`, `alamat`, `jenis_kelamin`, `id_jabatan`, `id_jenjang`, `nip`) VALUES
-(1, 'Aji Arian Nofa', 'Kota Bengkulu', 'laki-laki', 1, 1, '19200018'),
-(4, 'Zulva Priska', 'Kota Bengkulu', 'perempuan', 2, 2, '19200019');
+(1, 'Zulva Priska Muzairi', 'Kota Lubuklinggau', 'perempuan', 2, 1, '1920022');
 
 -- --------------------------------------------------------
 
@@ -156,13 +155,20 @@ CREATE TABLE `potongan` (
 
 CREATE TABLE `staff` (
   `id_staff` int(10) NOT NULL,
-  `nama` int(11) NOT NULL,
-  `alamat` int(11) NOT NULL,
+  `nama` text COLLATE utf8mb4_general_ci NOT NULL,
+  `alamat` text COLLATE utf8mb4_general_ci NOT NULL,
   `jenis_kelamin` enum('laki-laki','perempuan') COLLATE utf8mb4_general_ci NOT NULL,
   `id_jabatan` int(10) NOT NULL,
   `id_jenjang` int(10) NOT NULL,
   `nip` text COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `staff`
+--
+
+INSERT INTO `staff` (`id_staff`, `nama`, `alamat`, `jenis_kelamin`, `id_jabatan`, `id_jenjang`, `nip`) VALUES
+(2, 'Dilan Oh Dilan', 'Karawang City', 'laki-laki', 2, 2, '182000012');
 
 -- --------------------------------------------------------
 
@@ -184,8 +190,8 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id_data`, `id_user`, `username`, `password`, `role_user`) VALUES
 (1, 2, 'admin', '$2y$10$Tk6CNsC/RVH0irQIA6npPuOFG7MK5LzH8cuxYPhM/jfEy6TjywLh6', 'admin'),
-(2, 1, 'dosen', '$2y$10$Tk6CNsC/RVH0irQIA6npPuOFG7MK5LzH8cuxYPhM/jfEy6TjywLh6', 'dosen'),
-(4, 4, 'zpm', '$2y$10$fCQwlMsXNCDKHkJybrfLw.RBqQ4ot7kazQET.cbkdzUIfZud9RMW2', 'dosen');
+(8, 1, 'dosen', '$2y$10$Y2wENPirmPwB1osR1zL..eTKEyrU4VGt05sL3WsQsffTrXR2aWIkG', 'dosen'),
+(9, 2, 'dilan', '$2y$10$n6qigIQeQcjid3YHjH/Inea8Ubrz.4jChmZ7OTvAlkNLT1SN6ex6K', 'staff');
 
 --
 -- Indexes for dumped tables
@@ -253,7 +259,7 @@ ALTER TABLE `absensi`
 -- AUTO_INCREMENT untuk tabel `dosen`
 --
 ALTER TABLE `dosen`
-  MODIFY `id_dosen` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_dosen` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `jabatan`
@@ -283,13 +289,13 @@ ALTER TABLE `potongan`
 -- AUTO_INCREMENT untuk tabel `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id_staff` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_staff` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id_data` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_data` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

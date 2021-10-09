@@ -11,9 +11,11 @@ akses login admin <br/>
 username : admin <br/>
 password : admin <br/><br/>
 akses login dosen <br/>
-username : zpm <br/>
+username : dosen <br/>
 password : admin <br/> 
-aa
+akses login staff <br/><br/>
+username : dosen <br/>
+password : admin <br/> 
 
 # Cangelog
 09-10-2021<br/>
