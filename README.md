@@ -12,8 +12,8 @@ username : admin <br/>
 password : admin <br/><br/>
 akses login dosen <br/>
 username : dosen <br/>
-password : admin <br/> 
-akses login staff <br/><br/>
+password : admin <br/><br/>
+akses login staff <br/>
 username : dilan <br/>
 password : dilan123 <br/> 
 
