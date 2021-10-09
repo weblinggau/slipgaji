@@ -21,5 +21,8 @@ aa
 -membuat kerangka aplikasi<br/>
 -membuat database <br/>
 -membuat menu utama web<br/>
--module dosen selesai dibuat<br/>
+-module dosen selesai dibuat<br/><br/>
+09-10-2021<br/>
+-perbaikan menu dosen<br/>
+-menambhkan menu staff<br/>
 

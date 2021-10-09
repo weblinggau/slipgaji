@@ -44,9 +44,12 @@ class Panel extends CI_Controller
         if ($this->session->userdata('login') != 'zpmlogin') {
             redirect('Auth');
         }else{
+            $data['staff'] = $this->Basemodel->getstaff()->result();
+            $data['jabatan'] = $this->Basemodel->getjabatan()->result();
+            $data['jenjang'] = $this->Basemodel->getjenjang()->result();
             $this->load->view('templates/panel_header');
             $this->load->view('templates/panel_menu');
-            $this->load->view('staff/index');
+            $this->load->view('staff/index',$data);
             $this->load->view('templates/panel_footer');
         }
     }
