@@ -14,8 +14,8 @@ akses login dosen <br/>
 username : dosen <br/>
 password : admin <br/> 
 akses login staff <br/><br/>
-username : dosen <br/>
-password : admin <br/> 
+username : dilan <br/>
+password : dilan123 <br/> 
 
 # Cangelog
 09-10-2021<br/>
