@@ -18,6 +18,10 @@ username : dilan <br/>
 password : dilan123 <br/> 
 
 # Cangelog
+10-10-2021<br/>
+-perbaikan struktur databse<br/>
+-menambahkan module gaji dosen<br/>
+-menambahkan cetak slip gaji dosen<br/><br/>
 09-10-2021<br/>
 -perbaikan menu dosen<br/>
 -menambhkan menu staff<br/>

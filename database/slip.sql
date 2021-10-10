@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 09 Okt 2021 pada 13.58
+-- Waktu pembuatan: 10 Okt 2021 pada 06.36
 -- Versi server: 8.0.18
 -- Versi PHP: 7.3.11
 
@@ -49,9 +49,9 @@ CREATE TABLE `absensi` (
 INSERT INTO `absensi` (`id_absen`, `id_user`, `masuk`, `absen`, `sakit_skd`, `sakit_non_skd`, `izin`, `cuti`, `bulan`, `tahun`, `type`) VALUES
 (1, 1, 26, 1, 1, 0, 1, 1, '10', 2021, 'dosen'),
 (2, 1, 25, 2, 0, 0, 0, 3, '09', 2021, 'dosen'),
-(5, 8, 28, 2, 0, 0, 0, 0, '10', 2021, 'dosen'),
 (7, 3, 30, 0, 0, 0, 0, 0, '10', 2021, 'staff'),
-(8, 2, 29, 0, 0, 0, 0, 1, '10', 2021, 'staff');
+(8, 2, 29, 0, 0, 0, 0, 1, '10', 2021, 'staff'),
+(9, 8, 28, 0, 0, 0, 0, 0, '10', 2021, 'dosen');
 
 -- --------------------------------------------------------
 
@@ -76,6 +76,30 @@ CREATE TABLE `dosen` (
 INSERT INTO `dosen` (`id_dosen`, `nama`, `alamat`, `jenis_kelamin`, `id_jabatan`, `id_jenjang`, `nip`) VALUES
 (1, 'Zulva Priska Muzairi', 'Kota Lubuklinggau', 'perempuan', 2, 1, '1920022'),
 (8, 'Rahmat Riadi SH', 'Kota Bengkulu', 'laki-laki', 1, 1, '1920001');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `gaji`
+--
+
+CREATE TABLE `gaji` (
+  `id_gaji` int(10) NOT NULL,
+  `id_user` int(10) NOT NULL,
+  `id_pendapatan` int(10) NOT NULL,
+  `id_potongan` int(10) NOT NULL,
+  `bulan` enum('01','02','03','04','05','06','07','08','09','10','11','12') COLLATE utf8mb4_general_ci NOT NULL,
+  `tahun` int(10) NOT NULL,
+  `type` enum('dosen','staff') COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `gaji`
+--
+
+INSERT INTO `gaji` (`id_gaji`, `id_user`, `id_pendapatan`, `id_potongan`, `bulan`, `tahun`, `type`) VALUES
+(1, 8, 1, 1, '10', 2021, 'dosen'),
+(3, 1, 3, 2, '10', 2021, 'dosen');
 
 -- --------------------------------------------------------
 
@@ -123,17 +147,22 @@ INSERT INTO `jenjang` (`id_jenjang`, `nama_jenjang`) VALUES
 
 CREATE TABLE `pendapatan` (
   `id_pendapatan` int(11) NOT NULL,
-  `id_user` int(10) NOT NULL,
-  `bulan` enum('1','2','3','4','5','6','7','8','9','10','11','12') COLLATE utf8mb4_general_ci NOT NULL,
-  `tahun` int(11) NOT NULL,
-  `lembur` text COLLATE utf8mb4_general_ci NOT NULL,
-  `gapok` text COLLATE utf8mb4_general_ci NOT NULL,
-  `tj_jabatan` text COLLATE utf8mb4_general_ci NOT NULL,
-  `uang_makan` text COLLATE utf8mb4_general_ci NOT NULL,
-  `transport` text COLLATE utf8mb4_general_ci NOT NULL,
-  `bonus` text COLLATE utf8mb4_general_ci NOT NULL,
-  `thr` text COLLATE utf8mb4_general_ci NOT NULL
+  `lembur` int(50) NOT NULL,
+  `gapok` int(50) NOT NULL,
+  `tj_jabatan` int(50) NOT NULL,
+  `uang_makan` int(50) NOT NULL,
+  `transport` int(50) NOT NULL,
+  `bonus` int(50) NOT NULL,
+  `thr` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `pendapatan`
+--
+
+INSERT INTO `pendapatan` (`id_pendapatan`, `lembur`, `gapok`, `tj_jabatan`, `uang_makan`, `transport`, `bonus`, `thr`) VALUES
+(1, 0, 2300000, 500000, 0, 0, 0, 0),
+(3, 0, 3000000, 100000, 50000, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -143,15 +172,20 @@ CREATE TABLE `pendapatan` (
 
 CREATE TABLE `potongan` (
   `id_potong` int(11) NOT NULL,
-  `id_user` int(10) NOT NULL,
-  `cicilan_pinjaman` text COLLATE utf8mb4_general_ci NOT NULL,
-  `jamsostek` text COLLATE utf8mb4_general_ci NOT NULL,
-  `pt_telat` text COLLATE utf8mb4_general_ci NOT NULL,
-  `pt_absen` text COLLATE utf8mb4_general_ci NOT NULL,
-  `pph21` text COLLATE utf8mb4_general_ci NOT NULL,
-  `bulan` enum('1','2','3','4','5','6','7','8','9','10','11','12') COLLATE utf8mb4_general_ci NOT NULL,
-  `tahun` text COLLATE utf8mb4_general_ci NOT NULL
+  `cicilan_pinjaman` int(50) NOT NULL,
+  `jamsostek` int(50) NOT NULL,
+  `pt_telat` int(50) NOT NULL,
+  `pt_absen` int(50) NOT NULL,
+  `pph21` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `potongan`
+--
+
+INSERT INTO `potongan` (`id_potong`, `cicilan_pinjaman`, `jamsostek`, `pt_telat`, `pt_absen`, `pph21`) VALUES
+(1, 200000, 150000, 0, 0, 0),
+(2, 0, 50000, 0, 0, 300000);
 
 -- --------------------------------------------------------
 
@@ -221,6 +255,12 @@ ALTER TABLE `dosen`
   ADD PRIMARY KEY (`id_dosen`);
 
 --
+-- Indeks untuk tabel `gaji`
+--
+ALTER TABLE `gaji`
+  ADD PRIMARY KEY (`id_gaji`);
+
+--
 -- Indeks untuk tabel `jabatan`
 --
 ALTER TABLE `jabatan`
@@ -264,13 +304,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `absensi`
 --
 ALTER TABLE `absensi`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `dosen`
 --
 ALTER TABLE `dosen`
   MODIFY `id_dosen` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT untuk tabel `gaji`
+--
+ALTER TABLE `gaji`
+  MODIFY `id_gaji` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `jabatan`
@@ -288,13 +334,13 @@ ALTER TABLE `jenjang`
 -- AUTO_INCREMENT untuk tabel `pendapatan`
 --
 ALTER TABLE `pendapatan`
-  MODIFY `id_pendapatan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pendapatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `potongan`
 --
 ALTER TABLE `potongan`
-  MODIFY `id_potong` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_potong` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `staff`
