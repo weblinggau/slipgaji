@@ -94,6 +94,18 @@
           </div>
         </div>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#"  data-toggle="collapse" data-target="#collapseSeven" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cogs"></i>
+          <span>Meta Data</span>
+        </a>
+        <div id="collapseSeven" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="<?= base_url('meta/jabatan'); ?>">Data Jabatan</a>
+            <a class="collapse-item" href="<?= base_url('meta/jenjang'); ?>">Data Jenjang</a>
+          </div>
+        </div>
+      </li>
       <?php } ?>
 
       <li class="nav-item">

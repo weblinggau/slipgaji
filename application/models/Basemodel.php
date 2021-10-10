@@ -508,7 +508,218 @@ class Basemodel extends CI_Model {
         $data = $this->db->get();
         return $data;
     }
-    
+
+
+    // =========
+    public function getstaffGaji(){
+        $this->db->select('*');
+        $this->db->from('gaji');
+        $this->db->where('bulan',date('m'));
+        $this->db->where('tahun',date('Y'));
+        $this->db->where('type', 'staff');
+        $this->db->join('staff','staff.id_staff = gaji.id_user','left'); 
+        $this->db->join('pendapatan','pendapatan.id_pendapatan = gaji.id_pendapatan','left');
+        $this->db->join('potongan','potongan.id_potong = gaji.id_potongan','left');  
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function filterstaffGaji($data){
+        $this->db->select('*');
+        $this->db->from('gaji');
+        $this->db->where('bulan',$data['bulan']);
+        $this->db->where('tahun',$data['tahun']);
+        $this->db->where('type', 'staff');
+        $this->db->join('staff','staff.id_staff = gaji.id_user','left'); 
+        $this->db->join('pendapatan','pendapatan.id_pendapatan = gaji.id_pendapatan','left');
+        $this->db->join('potongan','potongan.id_potong = gaji.id_potongan','left');  
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function addStaffGaji($data,$dpat,$ptng){
+        // mengunakan metod trans karena ad 2 table yg hrus di isi dalam satu exekusi
+        $this->db->trans_start();
+            $pndptan = array(
+                'lembur' => $dpat['lembur'],
+                'gapok' => $dpat['gapok'],
+                'tj_jabatan' => $dpat['tj_jabatan'],
+                'transport' => $dpat['transport'],
+                'bonus' => $dpat['bonus'],
+                'thr' => $dpat['thr'],
+                'uang_makan' => $dpat['makan'],
+            );
+
+            $potongan = array (
+                'cicilan_pinjaman' => $ptng['cicilan'],
+                'jamsostek' => $ptng['jamsostek'],
+                'pt_telat' => $ptng['telat'],
+                'pt_absen' => $ptng['absen'],
+                'pph21' => $ptng['pph'],
+            );
+
+            $this->db->insert('pendapatan', $pndptan);
+            $id_pndptn = $this->db->insert_id();
+            $this->db->insert('potongan', $potongan);
+            $id_potong = $this->db->insert_id();
+
+            $gaji = array(
+                'id_user' => $data['id_user'],
+                'bulan' => $data['bulan'],
+                'tahun' => $data['tahun'],
+                'id_pendapatan' => $id_pndptn,
+                'id_potongan' => $id_potong,
+                'type' => 'staff',
+            );
+            $this->db->insert('gaji', $gaji);
+        $this->db->trans_complete();
+        return;
+    }
+
+    public function gajiStaffPraedit($id){
+        $this->db->select('*');
+        $this->db->from('gaji');
+        $this->db->where('id_gaji', $id);
+        $this->db->where('type', 'staff');
+        $this->db->join('staff','staff.id_staff = gaji.id_user','left'); 
+        $this->db->join('pendapatan','pendapatan.id_pendapatan = gaji.id_pendapatan','left');
+        $this->db->join('potongan','potongan.id_potong = gaji.id_potongan','left');  
+        $query = $this->db->get();
+        return $query;
+    }
+
+    public function upadateStaffGaji($form,$id){
+        
+        $pndptan = array(
+                'lembur' => $form['lembur'],
+                'gapok' => $form['gapok'],
+                'tj_jabatan' => $form['tj_jabatan'],
+                'transport' => $form['transport'],
+                'bonus' => $form['bonus'],
+                'thr' => $form['thr'],
+                'uang_makan' => $form['makan'],
+            );
+
+        $potongan = array (
+                'cicilan_pinjaman' => $form['cicilan'],
+                'jamsostek' => $form['jamsostek'],
+                'pt_telat' => $form['telat'],
+                'pt_absen' => $form['absen'],
+                'pph21' => $form['pph'],
+        );
+        $id_pendapatan = array('id_pendapatan' => $id['iddapat']);
+        $id_potong = array('id_potong' => $id['idpotong']);
+        $this->db->trans_start();
+            $this->db->where($id_pendapatan);
+            $this->db->update('pendapatan',$pndptan);
+
+            $this->db->where($id_potong);
+            $this->db->update('potongan',$potongan);
+        $this->db->trans_complete();
+        return;
+    }
+
+    public function hapusStaffGaji($id){
+        $this->db->trans_start();
+            $this->db->where('id_gaji',$id['id_gaji']);
+            $this->db->where('type','staff');
+            $this->db->delete('gaji');
+
+            $this->db->where('id_pendapatan',$id['id_pendap']);
+            $this->db->delete('pendapatan');
+
+            $this->db->where('id_potong',$id['id_potong']);
+            $this->db->delete('potongan');
+
+            $this->db->where('id_gaji',$id['id_gaji']);
+            $this->db->delete('gaji');
+        $this->db->trans_complete();
+    }
+
+    public function staffGetuser($id){
+        $this->db->where('id_gaji', $id);
+        $this->db->where('type', 'staff'); 
+        $data = $this->db->get('gaji');
+        return $data;
+    }
+
+    public function staffGetData($id){
+        $this->db->select('*');
+        $this->db->from('staff');
+        $this->db->where('id_staff', $id);
+        $this->db->join('jabatan','jabatan.id_jabatan = staff.id_jabatan','left');
+        $this->db->join('jenjang','jenjang.id_jenjang = staff.id_jenjang','left'); 
+        $data = $this->db->get();
+        return $data;
+    }
+
+    public function staffGetDataAbsen($id){
+        $this->db->select('*');
+        $this->db->from('staff');
+        $this->db->where('id_staff', $id);
+        $this->db->join('absensi','absensi.id_user = staff.id_staff','left');
+        $this->db->where('type', 'staff');
+        $data = $this->db->get();
+        return $data;
+    }
+
+    public function addMeta($data,$var){
+        if ($var == 'jabatan') {
+            $meta = array(
+                'nama_jabatan' => $data
+            );
+            $this->db->insert('jabatan', $meta);
+        }elseif ($var == 'jenjang') {
+             $meta = array(
+                'nama_jenjang' => $data
+            );
+            $this->db->insert('jenjang', $meta);
+        }
+        return 'sukses';
+    }
+
+    public function metaPraedit($id,$var){
+        if ($var == 'jabatan') {
+            $this->db->where('id_jabatan', $id);
+            $data = $this->db->get('jabatan');
+        }elseif ($var == 'jenjang') {
+            $this->db->where('id_jenjang', $id);
+            $data = $this->db->get('jenjang');
+        }
+        return $data;
+    }
+
+    public function updateMeta($data,$id,$var){
+        if ($var == 'jabatan') {
+            $datas = array(
+                'nama_jabatan' => $data['nama'],
+            );
+            $iddata = array('id_jabatan' => $id,);
+            $this->db->where($iddata);
+            $this->db->update('jabatan',$datas);
+        }elseif ($var == 'jenjang') {
+            $datas = array(
+                'nama_jenjang' => $data['nama'],
+            );
+            $iddata = array('id_jenjang' => $id,);
+            $this->db->where($iddata);
+            $this->db->update('jenjang',$datas);
+        }
+        return;
+    }
+
+    public function hapusMeta($id,$var){
+        if ($var == 'jabatan') {
+            $this->db->where('id_jabatan',$id);
+            $this->db->delete('jabatan');
+        }elseif ($var == 'jenjang') {
+            $this->db->where('id_jenjang',$id);
+            $this->db->delete('jenjang');
+        }
+        
+        return;
+    }
+
     public function getjabatan(){
         $data = $this->db->get('jabatan');
         return $data;
@@ -552,5 +763,7 @@ class Basemodel extends CI_Model {
         }
         return $val;
     }
+
+
 
 }

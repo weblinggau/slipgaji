@@ -466,23 +466,23 @@ GAJI DOSEN UNIVERSITAS BINA INSAN</span><span style='font-size:
 4.0cm'><span class=SpellE><span style='font-size:12.0pt;line-height:115%;
 font-family:"Times New Roman","serif"'>Nama</span></span><span
 style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman","serif"'><span
-style='mso-tab-count:1'>                            </span>:<o:p> <?= $dosen->nama; ?> </o:p></span></p>
+style='mso-tab-count:1'>                            </span>:<o:p> <?= $dsa->nama; ?> </o:p></span></p>
 
 <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;tab-stops:
 4.0cm'><span style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman","serif"'>NIP<span
-style='mso-tab-count:1'>                               </span>:<o:p> <?= $dosen->nip; ?> </o:p></span></p>
+style='mso-tab-count:1'>                               </span>:<o:p> <?= $dsa->nip; ?> </o:p></span></p>
 
 <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;tab-stops:
 4.0cm'><span class=SpellE><span style='font-size:12.0pt;line-height:115%;
 font-family:"Times New Roman","serif"'>Jabatan</span></span><span
 style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman","serif"'><span
-style='mso-tab-count:1'>                          </span>:<o:p> <?= $dosen->nama_jabatan; ?> </o:p></span></p>
+style='mso-tab-count:1'>                          </span>:<o:p> <?= $dsa->nama_jabatan; ?> </o:p></span></p>
 
 <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;tab-stops:
 4.0cm'><span class=SpellE><span style='font-size:12.0pt;line-height:115%;
 font-family:"Times New Roman","serif"'>Jenjang</span></span><span
 style='font-size:12.0pt;line-height:115%;font-family:"Times New Roman","serif"'><span
-style='mso-tab-count:1'>                          </span>:<o:p> <?= $dosen->nama_jenjang; ?> </o:p></span></p>
+style='mso-tab-count:1'>                          </span>:<o:p> <?= $dsa->nama_jenjang; ?> </o:p></span></p>
 
 <p class=MsoNormal style='margin-bottom:0cm;margin-bottom:.0001pt;tab-stops:
 4.0cm'><span class=SpellE><span style='font-size:12.0pt;line-height:115%;

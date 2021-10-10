@@ -22,19 +22,19 @@
                               <tbody>
                                   <tr>
                                     <th scope="row">Nama </th>
-                                    <th colspan="2"><?= $dosen->nama; ?></th>
+                                    <th colspan="2"><?= $dsa->nama; ?></th>
                                   </tr>
                                   <tr>
                                     <th scope="row">NIP </th>
-                                    <th colspan="2"><?= $dosen->nip; ?></th>
+                                    <th colspan="2"><?= $dsa->nip; ?></th>
                                   </tr>
                                   <tr>
                                     <th scope="row">Jabatan </th>
-                                    <th colspan="2"><?= $dosen->nama_jabatan; ?></th>
+                                    <th colspan="2"><?= $dsa->nama_jabatan; ?></th>
                                   </tr>
                                   <tr>
                                     <th scope="row">Jenjang </th>
-                                    <th colspan="2"><?= $dosen->nama_jenjang; ?></th>
+                                    <th colspan="2"><?= $dsa->nama_jenjang; ?></th>
                                   </tr>
                               </tbody>
                             </table>
@@ -218,7 +218,7 @@
                   </div>
                   <div class="card-body">
                     <div>
-                      <a href="<?= base_url("gaji/dosencetak/").$gaji->id_gaji;?>" class="btn btn-warning btn-icon-split" >
+                      <a href="<?= base_url("gaji/").$route.'/'.$gaji->id_gaji;?>" class="btn btn-warning btn-icon-split" >
                         <span class="icon text-white-50">
                             <i class="fas fa-print"></i>
                         </span>
